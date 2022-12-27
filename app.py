@@ -11,26 +11,27 @@ import json
 app = Flask(__name__)
 
 def determine_age_group(age):
-  if 16 <= age <= 17:
-    return '16-17'
-  elif 18 <= age <= 19:
-    return '18-19'
-  elif 20 <= age <= 24:
-    return '20-24'
-  elif 25 <= age <= 29:
-    return '25-29'
-  elif 30 <= age <= 34:
-    return '30-34'
-  elif 35 <= age <= 44:
-    return '35-44'
-  elif 45 <= age <= 54:
-    return '45-54'
-  elif 55 <= age <= 64:
-    return '55-64'
-  elif 65 <= age <= 69:
-    return '65-69'
-  else:
-    raise Exception('age is not in the predefined range.')
+    age = int(age)
+    if 16 <= age <= 17:
+        return '16-17'
+    elif 18 <= age <= 19:
+        return '18-19'
+    elif 20 <= age <= 24:
+        return '20-24'
+    elif 25 <= age <= 29:
+        return '25-29'
+    elif 30 <= age <= 34:
+        return '30-34'
+    elif 35 <= age <= 44:
+        return '35-44'
+    elif 45 <= age <= 54:
+        return '45-54'
+    elif 55 <= age <= 64:
+        return '55-64'
+    elif 65 <= age <= 69:
+        return '65-69'
+    else:
+        raise Exception('age is not in the predefined range.')
 
 def determine_scaled_scores_range(number_range_list, target_number):
   for number_range in number_range_list:
@@ -56,6 +57,7 @@ def hello():
 @app.route("/", methods=['POST'])
 def create_post():
   data = request.json
+  print(data)
   print(data['age'])
   age_group = determine_age_group(data['age'])
   scaled_scores_data = pd.read_csv(f'./conversion-data/Age {age_group}.csv')
